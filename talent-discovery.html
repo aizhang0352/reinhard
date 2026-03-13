@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天赋觉醒计划 | 找到你的10倍优势</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans SC', sans-serif; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .option-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .option-card.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        
+        .radar-chart {
+            filter: drop-shadow(0 10px 20px rgba(102, 126, 234, 0.3));
+        }
+        
+        .hidden-section { display: none; }
+        .visible-section { display: block; animation: fadeIn 0.6s ease; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .talent-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .career-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 min-h-screen text-slate-800 overflow-x-hidden">
+
+    <!-- Hero Section -->
+    <section id="hero" class="visible-section min-h-screen flex items-center justify-center relative px-4">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 float-anim"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 float-anim" style="animation-delay: 2s"></div>
+            <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 float-anim" style="animation-delay: 4s"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-6 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-purple-200 text-purple-600 text-sm font-medium">
+                🎯 顺势手记 · 天赋觉醒计划
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                找到比别人强<br>
+                <span class="gradient-text">10倍的天赋</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                然后用一生去奋斗。发现你的核心优势，找到真正属于你的人生赛道。
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="startAssessment()" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all">
+                    开始天赋探索 →
+                </button>
+                <p class="text-sm text-slate-500">已有 12,847 人找到天赋</p>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-3xl mb-3">🧠</div>
+                    <h3 class="font-bold text-lg mb-2">科学测评</h3>
+                    <p class="text-slate-600 text-sm">基于多元智能理论，8大维度深度解析</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-3xl mb-3">🎯</div>
+                    <h3 class="font-bold text-lg mb-2">精准匹配</h3>
+                    <p class="text-slate-600 text-sm">AI算法推荐最适合你的职业方向</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-3xl mb-3">🚀</div>
+                    <h3 class="font-bold text-lg mb-2">成长路径</h3>
+                    <p class="text-slate-600 text-sm">从天赋到专业能力的完整规划</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Section -->
+    <section id="assessment" class="hidden-section min-h-screen py-12 px-4">
+        <div class="max-w-3xl mx-auto">
+            <!-- Progress -->
+            <div class="mb-8">
+                <div class="flex justify-between text-sm text-slate-600 mb-2">
+                    <span>探索进度</span>
+                    <span id="progress-text">1/8</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2">
+                    <div id="progress-bar" class="progress-bar h-2 rounded-full" style="width: 12.5%"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="question-container" class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl">
+                <h2 id="question-text" class="text-2xl md:text-3xl font-bold mb-8 text-slate-800">
+                    当你空闲时，你更倾向于做什么？
+                </h2>
+                
+                <div id="options-container" class="space-y-4">
+                    <!-- Options will be injected here -->
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button id="next-btn" onclick="nextQuestion()" disabled 
+                    class="px-8 py-3 bg-slate-300 text-white rounded-full font-bold cursor-not-allowed transition-all">
+                    下一题
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Section -->
+    <section id="loading" class="hidden-section min-h-screen flex items-center justify-center">
+        <div class="text-center">
+            <div class="w-24 h-24 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mx-auto mb-6"></div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">正在分析你的天赋图谱...</h2>
+            <p class="text-slate-600">AI正在计算你的核心优势领域</p>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="hidden-section min-h-screen py-12 px-4">
+        <div class="max-w-5xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-block px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-bold mb-4">
+                    🎉 天赋发现完成
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black mb-4">
+                    你是 <span id="talent-type" class="gradient-text">战略型创造者</span>
+                </h2>
+                <p id="talent-desc" class="text-xl text-slate-600 max-w-2xl mx-auto">
+                    你拥有独特的系统化思维和创新能力的完美结合
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Radar Chart -->
+                <div class="glass-card rounded-3xl p-8">
+                    <h3 class="text-xl font-bold mb-6 text-center">天赋能力雷达图</h3>
+                    <canvas id="radarChart" width="400" height="400" class="w-full max-w-md mx-auto"></canvas>
+                </div>
+
+                <!-- Top Talents -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold mb-6">你的三大核心优势</h3>
+                    <div id="top-talents" class="space-y-4">
+                        <!-- Will be injected -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Career Recommendations -->
+            <div class="glass-card rounded-3xl p-8 mb-8">
+                <h3 class="text-2xl font-bold mb-6">🎯 推荐职业赛道</h3>
+                <div id="career-recommendations" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Will be injected -->
+                </div>
+            </div>
+
+            <!-- Action Plan -->
+            <div class="glass-card rounded-3xl p-8 mb-8">
+                <h3 class="text-2xl font-bold mb-6">📈 天赋进化路线图</h3>
+                <div id="action-plan" class="space-y-6">
+                    <!-- Will be injected -->
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center space-y-4">
+                <button onclick="restart()" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all">
+                    重新测试
+                </button>
+                <div class="flex justify-center gap-4 mt-6">
+                    <button onclick="shareResult()" class="px-6 py-3 bg-white border-2 border-purple-200 text-purple-600 rounded-full font-bold hover:bg-purple-50 transition-all">
+                        分享结果
+                    </button>
+                    <button onclick="saveResult()" class="px-6 py-3 bg-white border-2 border-blue-200 text-blue-600 rounded-full font-bold hover:bg-blue-50 transition-all">
+                        保存报告
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Assessment Data
+        const questions = [
+            {
+                id: 1,
+                question: "当你空闲时，你更倾向于做什么？",
+                options: [
+                    { text: "阅读、写作或思考抽象概念", scores: { logical: 3, linguistic: 3, intrapersonal: 2 } },
+                    { text: "画画、设计或欣赏艺术作品", scores: { spatial: 3, creative: 3, interpersonal: 1 } },
+                    { text: "运动、手工或户外活动", scores: { bodily: 3, naturalist: 2, spatial: 1 } },
+                    { text: "与朋友聚会、聊天或组织活动", scores: { interpersonal: 3, linguistic: 2, musical: 1 } }
+                ]
+            },
+            {
+                id: 2,
+                question: "在学习新事物时，你通常：",
+                options: [
+                    { text: "喜欢理解原理和逻辑结构", scores: { logical: 3, intrapersonal: 2, linguistic: 1 } },
+                    { text: "通过图表、图像和视觉记忆", scores: { spatial: 3, creative: 2, logical: 1 } },
+                    { text: "动手实践，边做边学", scores: { bodily: 3, naturalist: 2, interpersonal: 1 } },
+                    { text: "听讲解、讨论或音乐辅助", scores: { musical: 3, linguistic: 2, interpersonal: 2 } }
+                ]
+            },
+            {
+                id: 3,
+                question: "你认为自己最强的能力是：",
+                options: [
+                    { text: "分析问题和解决复杂难题", scores: { logical: 3, intrapersonal: 2, spatial: 1 } },
+                    { text: "察言观色，理解他人情绪", scores: { interpersonal: 3, intrapersonal: 2, linguistic: 1 } },
+                    { text: "创造美感和独特设计", scores: { creative: 3, spatial: 3, musical: 1 } },
+                    { text: "身体协调和动作精准", scores: { bodily: 3, spatial: 2, naturalist: 1 } }
+                ]
+            },
+            {
+                id: 4,
+                question: "在团队中，你通常扮演的角色是：",
+                options: [
+                    { text: "策划者，制定计划和策略", scores: { logical: 3, intrapersonal: 2, linguistic: 1 } },
+                    { text: "协调者，沟通各方需求", scores: { interpersonal: 3, linguistic: 2, logical: 1 } },
+                    { text: "创意者，提出新颖想法", scores: { creative: 3, spatial: 2, musical: 1 } },
+                    { text: "执行者，高效完成任务", scores: { bodily: 2, logical: 2, intrapersonal: 2 } }
+                ]
+            },
+            {
+                id: 5,
+                question: "你最容易进入心流状态（忘我投入）的场景是：",
+                options: [
+                    { text: "深入研究一个复杂主题", scores: { logical: 3, intrapersonal: 3, linguistic: 1 } },
+                    { text: "创作艺术作品或音乐", scores: { creative: 3, musical: 3, spatial: 2 } },
+                    { text: "帮助他人解决问题", scores: { interpersonal: 3, linguistic: 2, logical: 1 } },
+                    { text: "户外探索或运动竞技", scores: { naturalist: 3, bodily: 3, spatial: 1 } }
+                ]
+            },
+            {
+                id: 6,
+                question: "你童年时期最突出的特点是：",
+                options: [
+                    { text: "好奇心强，喜欢问为什么", scores: { logical: 3, naturalist: 2, linguistic: 1 } },
+                    { text: "善于表达，故事讲得好", scores: { linguistic: 3, interpersonal: 2, creative: 1 } },
+                    { text: "动手能力强，喜欢拆装东西", scores: { bodily: 3, spatial: 2, logical: 1 } },
+                    { text: "敏感细腻，观察入微", scores: { intrapersonal: 3, creative: 2, musical: 1 } }
+                ]
+            },
+            {
+                id: 7,
+                question: "面对挑战时，你的第一反应是：",
+                options: [
+                    { text: "分析情况，寻找最优解", scores: { logical: 3, spatial: 1, intrapersonal: 1 } },
+                    { text: "寻求合作，集思广益", scores: { interpersonal: 3, linguistic: 2, creative: 1 } },
+                    { text: "凭直觉，大胆尝试", scores: { creative: 3, musical: 2, bodily: 1 } },
+                    { text: "观察环境，适应变化", scores: { naturalist: 3, intrapersonal: 2, spatial: 1 } }
+                ]
+            },
+            {
+                id: 8,
+                question: "如果可以选择，你希望工作能带给你：",
+                options: [
+                    { text: "智力上的挑战和突破", scores: { logical: 3, linguistic: 2, intrapersonal: 1 } },
+                    { text: "美感和创造力的表达", scores: { creative: 3, musical: 2, spatial: 2 } },
+                    { text: "人际连接和影响力", scores: { interpersonal: 3, linguistic: 2, logical: 1 } },
+                    { text: "身体实践和具体成果", scores: { bodily: 3, naturalist: 2, spatial: 1 } }
+                ]
+            }
+        ];
+
+        const talentTypes = {
+            "logical-linguistic": {
+                name: "战略分析师",
+                desc: "你拥有卓越的逻辑思维和语言表达能力，善于将复杂问题结构化并清晰传达。",
+                careers: ["战略咨询", "数据科学家", "投资分析师", "产品经理", "政策研究员"],
+                actions: [
+                    { phase: "短期（1-3个月）", task: "学习Python或SQL，建立数据分析基础" },
+                    { phase: "中期（6-12个月）", task: "参与实际项目，积累行业洞察和案例" },
+                    { phase: "长期（1-3年）", task: "成为领域专家，建立个人知识体系和影响力" }
+                ]
+            },
+            "creative-spatial": {
+                name: "创意架构师",
+                desc: "你具备独特的空间想象力和创造力，能将抽象概念转化为具象作品。",
+                careers: ["UX/UI设计师", "建筑师", "创意总监", "游戏设计师", "影视导演"],
+                actions: [
+                    { phase: "短期（1-3个月）", task: "建立作品集，掌握Figma/Blender等工具" },
+                    { phase: "中期（6-12个月）", task: "参与跨界项目，融合技术与艺术" },
+                    { phase: "长期（1-3年）", task: "形成个人风格，引领设计趋势" }
+                ]
+            },
+            "interpersonal-linguistic": {
+                name: "影响力领袖",
+                desc: "你天生具备感染他人的能力和语言魅力，是团队中的灵魂人物。",
+                careers: ["企业培训师", "公关总监", "创业者", "播客主持人", "销售总监"],
+                actions: [
+                    { phase: "短期（1-3个月）", task: "练习演讲，建立个人品牌社交媒体" },
+                    { phase: "中期（6-12个月）", task: "扩大人脉网络，寻找 mentorship 机会" },
+                    { phase: "长期（1-3年）", task: "建立个人IP，打造知识付费产品" }
+                ]
+            },
+            "bodily-spatial": {
+                name: "实践造物者",
+                desc: "你拥有出色的身体协调能力和空间感知，善于将想法变为现实。",
+                careers: ["外科医生", "工业设计师", "运动员/教练", "摄影师", "厨师"],
+                actions: [
+                    { phase: "短期（1-3个月）", task: "精进核心技能，获得专业认证" },
+                    { phase: "中期（6-12个月）", task: "参与竞技或展览，积累实战经验" },
+                    { phase: "长期（1-3年）", task: "开设工作室或成为领域权威" }
+                ]
+            },
+            "naturalist-intrapersonal": {
+                name: "生态洞察者",
+                desc: "你对自然和生命有深刻理解，同时具备强大的自我认知能力。",
+                careers: ["生态学家", "心理咨询师", "自然摄影师", "农业创业者", "环保顾问"],
+                actions: [
+                    { phase: "短期（1-3个月）", task: "深入田野调查，建立观察记录系统" },
+                    { phase: "中期（6-12个月）", task: "发表研究成果或咨询案例" },
+                    { phase: "长期（1-3年）", task: "推动行业变革，建立可持续商业模式" }
+                ]
+            },
+            "musical-creative": {
+                name: "韵律创新者",
+                desc: "你对声音和节奏有敏锐感知，能创造出打动人心的作品。",
+                careers: ["音乐制作人", "声音设计师", "音频工程师", "音乐治疗师", "作曲家"],
+                actions: [
+                    { phase: "短期（1-3个月）", task: "掌握DAW软件，建立家庭工作室" },
+                    { phase: "中期（6-12个月）", task: "发布原创作品，建立听众社群" },
+                    { phase: "长期（1-3年）", task: "举办演出或发行专辑，打造个人厂牌" }
+                ]
+            }
+        };
+
+        let currentQuestion = 0;
+        let scores = {
+            logical: 0, linguistic: 0, spatial: 0, 
+            musical: 0, bodily: 0, interpersonal: 0,
+            intrapersonal: 0, creative: 0, naturalist: 0
+        };
+        let selectedOption = null;
+
+        function startAssessment() {
+            document.getElementById('hero').classList.remove('visible-section');
+            document.getElementById('hero').classList.add('hidden-section');
+            document.getElementById('assessment').classList.remove('hidden-section');
+            document.getElementById('assessment').classList.add('visible-section');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('question-text').textContent = q.question;
+            document.getElementById('progress-text').textContent = `${currentQuestion + 1}/${questions.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            q.options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'option-card p-6 rounded-2xl border-2 border-slate-200 cursor-pointer bg-white/50 hover:border-purple-400';
+                div.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 option-letter">
+                            ${String.fromCharCode(65 + idx)}
+                        </div>
+                        <span class="text-lg font-medium">${opt.text}</span>
+                    </div>
+                `;
+                div.onclick = () => selectOption(idx, div);
+                container.appendChild(div);
+            });
+            
+            selectedOption = null;
+            updateNextButton();
+        }
+
+        function selectOption(idx, element) {
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+                card.querySelector('.option-letter').classList.remove('bg-white', 'text-purple-600');
+                card.querySelector('.option-letter').classList.add('bg-slate-200', 'text-slate-600');
+            });
+            
+            element.classList.add('selected');
+            element.querySelector('.option-letter').classList.remove('bg-slate-200', 'text-slate-600');
+            element.querySelector('.option-letter').classList.add('bg-white', 'text-purple-600');
+            
+            selectedOption = idx;
+            updateNextButton();
+        }
+
+        function updateNextButton() {
+            const btn = document.getElementById('next-btn');
+            if (selectedOption !== null) {
+                btn.disabled = false;
+                btn.classList.remove('bg-slate-300', 'cursor-not-allowed');
+                btn.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-blue-600', 'hover:shadow-lg', 'transform', 'hover:scale-105');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-slate-300', 'cursor-not-allowed');
+                btn.classList.remove('bg-gradient-to-r', 'from-purple-600', 'to-blue-600', 'hover:shadow-lg', 'transform', 'hover:scale-105');
+            }
+        }
+
+        function nextQuestion() {
+            if (selectedOption === null) return;
+            
+            // Add scores
+            const q = questions[currentQuestion];
+            const selectedScores = q.options[selectedOption].scores;
+            for (let key in selectedScores) {
+                scores[key] += selectedScores[key];
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                renderQuestion();
+            } else {
+                showLoading();
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('assessment').classList.remove('visible-section');
+            document.getElementById('assessment').classList.add('hidden-section');
+            document.getElementById('loading').classList.remove('hidden-section');
+            document.getElementById('loading').classList.add('visible-section');
+            
+            setTimeout(showResults, 2000);
+        }
+
+        function showResults() {
+            document.getElementById('loading').classList.remove('visible-section');
+            document.getElementById('loading').classList.add('hidden-section');
+            document.getElementById('results').classList.remove('hidden-section');
+            document.getElementById('results').classList.add('visible-section');
+            
+            calculateAndShowResults();
+        }
+
+        function calculateAndShowResults() {
+            // Sort scores
+            const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            const top3 = sortedScores.slice(0, 3);
+            
+            // Determine talent type
+            const primary = top3[0][0];
+            const secondary = top3[1][0];
+            let talentKey = `${primary}-${secondary}`;
+            
+            // Find matching talent type or default
+            let talent = talentTypes[talentKey];
+            if (!talent) {
+                // Find closest match
+                for (let key in talentTypes) {
+                    if (key.includes(primary) || key.includes(secondary)) {
+                        talent = talentTypes[key];
+                        break;
+                    }
+                }
+                if (!talent) talent = talentTypes["logical-linguistic"];
+            }
+            
+            // Update UI
+            document.getElementById('talent-type').textContent = talent.name;
+            document.getElementById('talent-desc').textContent = talent.desc;
+            
+            // Render top talents
+            const talentsContainer = document.getElementById('top-talents');
+            talentsContainer.innerHTML = '';
+            const talentNames = {
+                logical: "逻辑数学", linguistic: "语言文字", spatial: "空间视觉",
+                musical: "音乐节奏", bodily: "身体动觉", interpersonal: "人际社交",
+                intrapersonal: "自我认知", creative: "创造创新", naturalist: "自然观察"
+            };
+            
+            top3.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-100';
+                div.innerHTML = `
+                    <div class="w-12 h-12 rounded-full talent-badge flex items-center justify-center text-white font-bold text-xl">
+                        ${idx + 1}
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-lg text-slate-800">${talentNames[item[0]]}</div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                            <div class="h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500" style="width: ${(item[1] / 12) * 100}%"></div>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-600">${item[1]}</div>
+                `;
+                talentsContainer.appendChild(div);
+            });
+            
+            // Render careers
+            const careerContainer = document.getElementById('career-recommendations');
+            careerContainer.innerHTML = '';
+            talent.careers.forEach(career => {
+                const div = document.createElement('div');
+                div.className = 'career-card p-6 rounded-2xl text-white text-center transform hover:scale-105 transition-all cursor-pointer';
+                div.innerHTML = `
+                    <div class="text-2xl mb-2">💼</div>
+                    <div class="font-bold">${career}</div>
+                `;
+                careerContainer.appendChild(div);
+            });
+            
+            // Render action plan
+            const planContainer = document.getElementById('action-plan');
+            planContainer.innerHTML = '';
+            talent.actions.forEach((action, idx) => {
+                const div = document.createElement('div');
+                div.className = 'flex gap-4 items-start';
+                div.innerHTML = `
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                        ${idx + 1}
+                    </div>
+                    <div class="flex-1 p-4 rounded-xl bg-white/50 border border-slate-200">
+                        <div class="font-bold text-purple-700 mb-1">${action.phase}</div>
+                        <div class="text-slate-700">${action.task}</div>
+                    </div>
+                `;
+                planContainer.appendChild(div);
+            });
+            
+            // Draw radar chart
+            drawRadarChart(sortedScores);
+        }
+
+        function drawRadarChart(sortedScores) {
+            const canvas = document.getElementById('radarChart');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 150;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const labels = ['逻辑', '语言', '空间', '音乐', '动觉', '社交', '自省', '创新', '自然'];
+            const values = sortedScores.map(s => s[1]);
+            const maxVal = Math.max(...values) + 2;
+            
+            // Draw grid
+            for (let i = 1; i <= 4; i++) {
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(102, 126, 234, 0.2)';
+                ctx.lineWidth = 1;
+                for (let j = 0; j < 9; j++) {
+                    const angle = (Math.PI * 2 / 9) * j - Math.PI / 2;
+                    const x = centerX + Math.cos(angle) * (radius * i / 4);
+                    const y = centerY + Math.sin(angle) * (radius * i / 4);
+                    if (j === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+            
+            // Draw axes
+            for (let i = 0; i < 9; i++) {
+                const angle = (Math.PI * 2 / 9) * i - Math.PI / 2;
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(102, 126, 234, 0.3)';
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
+                ctx.stroke();
+                
+                // Labels
+                ctx.fillStyle = '#475569';
+                ctx.font = 'bold 14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const labelX = centerX + Math.cos(angle) * (radius + 25);
+                const labelY = centerY + Math.sin(angle) * (radius + 25);
+                ctx.fillText(labels[i], labelX, labelY);
+            }
+            
+            // Draw data
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.3)';
+            ctx.strokeStyle = 'rgba(102, 126, 234, 1)';
+            ctx.lineWidth = 3;
+            
+            for (let i = 0; i < 9; i++) {
+                const angle = (Math.PI * 2 / 9) * i - Math.PI / 2;
+                const value = values[i] || 0;
+                const r = (value / maxVal) * radius;
+                const x = centerX + Math.cos(angle) * r;
+                const y = centerY + Math.sin(angle) * r;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw points
+            for (let i = 0; i < 9; i++) {
+                const angle = (Math.PI * 2 / 9) * i - Math.PI / 2;
+                const value = values[i] || 0;
+                const r = (value / maxVal) * radius;
+                const x = centerX + Math.cos(angle) * r;
+                const y = centerY + Math.sin(angle) * r;
+                
+                ctx.beginPath();
+                ctx.fillStyle = '#fff';
+                ctx.strokeStyle = '#667eea';
+                ctx.lineWidth = 2;
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+        }
+
+        function restart() {
+            currentQuestion = 0;
+            scores = {
+                logical: 0, linguistic: 0, spatial: 0, 
+                musical: 0, bodily: 0, interpersonal: 0,
+                intrapersonal: 0, creative: 0, naturalist: 0
+            };
+            selectedOption = null;
+            
+            document.getElementById('results').classList.remove('visible-section');
+            document.getElementById('results').classList.add('hidden-section');
+            document.getElementById('hero').classList.remove('hidden-section');
+            document.getElementById('hero').classList.add('visible-section');
+        }
+
+        function shareResult() {
+            const type = document.getElementById('talent-type').textContent;
+            const text = `我在【天赋觉醒计划】中发现自己是"${type}"！来测测你的天赋吧！`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: '天赋觉醒计划',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                // Copy to clipboard
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('结果已复制到剪贴板！');
+                });
+            }
+        }
+
+        function saveResult() {
+            // Create a text version of the result
+            const type = document.getElementById('talent-type').textContent;
+            const desc = document.getElementById('talent-desc').textContent;
+            
+            const content = `
+天赋觉醒计划 - 个人报告
+========================
+
+天赋类型：${type}
+描述：${desc}
+
+测试时间：${new Date().toLocaleString()}
+
+找到比别人强10倍的天赋，然后用一生去奋斗。
+            `.trim();
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `天赋报告-${type}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
